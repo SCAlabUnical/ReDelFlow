@@ -61,7 +61,7 @@
     {
       "name": "TechProofreader",
       "role": "Tech Proofreader",
-      "description": "Proofreads and refines technology articles for grammar, clarity and style.",
+      "description": "Proofreads and refines technology articles for grammar, clarity and style only.",
       "host": "localhost",
       "port": 50015,
       "neighbors": []
@@ -116,7 +116,7 @@
     {
       "name": "HealthProofreader",
       "role": "Health Proofreader",
-      "description": "Proofreads and refines health articles for grammar, clarity and style.",
+      "description": "Proofreads and refines health articles for grammar, clarity and style only.",
       "host": "localhost",
       "port": 50024,
       "neighbors": []
@@ -171,7 +171,7 @@
     {
       "name": "SportsProofreader",
       "role": "Sports Proofreader",
-      "description": "Proofreads and refines sports articles for grammar, clarity and style.",
+      "description": "Proofreads and refines sports articles for grammar, clarity and style only.",
       "host": "localhost",
       "port": 50034,
       "neighbors": []
