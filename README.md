@@ -115,8 +115,8 @@ redel-flow/
 ## Installation
 
 ```bash
-git clone https://github.com/CozzaFrancesco/redel-flow.git
-cd redel-flow
+git clone https://github.com/SCAlabUnical/ReDelFlow.git
+cd RedelFlow
 
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\\Scripts\\activate
