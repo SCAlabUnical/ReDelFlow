@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package agentic;
+
+service Agent {
+  rpc Invoke (InvokeRequest) returns (InvokeResponse);
+  rpc ReturnResult(ReturnResultRequest) returns (ReturnResultResponse);
+}
+
+message InvokeRequest {
+  string conversation_id = 1;  // ID che identifica la conversazione
+  string request_id=2;
+  string sender = 3;           // Nome dell’agente che invia il messaggio
+  string request = 4;          // Richiesta da elaborare
+  repeated string not_callable_agents= 5; //agenti che non possono essere chiamati perchè, altrimenti, si formerebbe un ciclo.
+}
+
+message InvokeResponse {
+  string conversation_id = 1;
+  bool ack = 2;
+}
+
+message ReturnResultRequest{
+  string conversation_id = 1;
+  string request_id =2;
+  string sender =3;
+  string response = 4;
+}
+
+message ReturnResultResponse{
+  string conversation_id = 1;
+  bool ack = 2;
+}

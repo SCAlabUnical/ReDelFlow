@@ -1,0 +1,180 @@
+{
+  "orchestrator": { "host": "localhost", "port": 6000 },
+  "client":       { "host": "localhost", "port": 7000 },
+  "entrypoints": ["EditorInChief"],
+  "agents": [
+    {
+      "name": "EditorInChief",
+      "role": "Editor-in-Chief",
+      "description": "Oversees the production of the newspaper and leads the editorial team.",
+      "host": "localhost",
+      "port": 50000,
+      "neighbors": ["TechChief", "HealthChief", "SportsChief"]
+    },
+    {
+      "name": "TechChief",
+      "role": "Technology Section Chief",
+      "description": "Oversees the production of technology related content.",
+      "host": "localhost",
+      "port": 50010,
+      "neighbors": ["TechWriter"]
+    },
+    {
+      "name": "TechWriter",
+      "role": "Technology Writer",
+      "description": "Responsible for writing technology articles with the help of tech experts. All information must be verified against experts or through online research. Ensure all referenced events have occurred, with strict attention to accuracy and fact-checking throughout the writing process.",
+      "host": "localhost",
+      "port": 50011,
+      "neighbors": ["ComputerExpert", "PhysicsExpert", "TechProofreader"],
+      "tools": {
+        "search": {
+          "tip": "Use this tool to search for technology-related information."
+        }
+      }
+    },
+    {
+      "name": "ComputerExpert",
+      "role": "Computer Expert",
+      "description": "Provides expert knowledge in computer science. Use domain knowledge for general concepts and online research for date-specific topics. Always ensure information is verified and up to date.",
+      "host": "localhost",
+      "port": 50013,
+      "neighbors": [],
+      "tools": {
+        "search": {
+          "tip": "Use this tool to search for computer science-related information."
+        }
+      }
+    },
+    {
+      "name": "PhysicsExpert",
+      "role": "Physics Expert",
+      "description": "Provides expert knowledge in physics. Use domain knowledge for general concepts and online research for date-specific topics. Always ensure information is verified and up to date.",
+      "host": "localhost",
+      "port": 50014,
+      "neighbors": [],
+      "tools": {
+        "search": {
+          "tip": "Use this tool to search for physics-related information."
+        }
+      }
+    },
+    {
+      "name": "TechProofreader",
+      "role": "Tech Proofreader",
+      "description": "Proofreads and refines technology articles for grammar, clarity and style.",
+      "host": "localhost",
+      "port": 50015,
+      "neighbors": []
+    },
+    {
+      "name": "HealthChief",
+      "role": "Health Section Chief",
+      "description": "Oversees the production of health related content.",
+      "host": "localhost",
+      "port": 50020,
+      "neighbors": ["HealthWriter"]
+    },
+    {
+      "name": "HealthWriter",
+      "role": "Health Writer",
+      "description": "Responsible for writing health articles with the help of health experts. All information must be verified against experts or through online research. Ensure all referenced events have occurred, with strict attention to accuracy and fact-checking throughout the writing process.",
+      "host": "localhost",
+      "port": 50021,
+      "neighbors": ["MedicalExpert", "NutritionExpert", "HealthProofreader"],
+      "tools": {
+        "search": {
+          "tip": "Use this tool to search for health-related information."
+        }
+      }
+    },
+    {
+      "name": "MedicalExpert",
+      "role": "Medical Expert",
+      "description": "Provides expert knowledge in medicine and healthcare. Use domain knowledge for general concepts and online research for date-specific topics. Always ensure information is verified and up to date.",
+      "host": "localhost",
+      "port": 50022,
+      "neighbors": [],
+      "tools": {
+        "search": {
+          "tip": "Use this tool to search for medicine-related information."
+        }
+      } 
+    },
+    { 
+      "name": "NutritionExpert",
+      "role": "Nutrition Expert",
+      "description": "Provides expert knowledge in nutrition and wellness. Use domain knowledge for general concepts and online research for date-specific topics. Always ensure information is verified and up to date.",
+      "host": "localhost",
+      "port": 50023,
+      "neighbors": [],
+      "tools": {
+        "search": {
+          "tip": "Use this tool to search for nutrition-related information."
+        }
+      }
+    },
+    {
+      "name": "HealthProofreader",
+      "role": "Health Proofreader",
+      "description": "Proofreads and refines health articles for grammar, clarity and style.",
+      "host": "localhost",
+      "port": 50024,
+      "neighbors": []
+    },
+    {
+      "name": "SportsChief",
+      "role": "Sports Section Chief",
+      "description": "Oversees the production of sports related content.",
+      "host": "localhost",
+      "port": 50030,
+      "neighbors": ["SportsWriter"]
+    },
+    {
+      "name": "SportsWriter",
+      "role": "Sports Writer",
+      "description": "Responsible for writing sports articles with the help of sports experts. All information must be verified against experts or through online research. Ensure all referenced events have occurred, with strict attention to accuracy and fact-checking throughout the writing process.",
+      "host": "localhost",
+      "port": 50031,
+      "neighbors": ["FootballExpert", "BasketballExpert", "SportsProofreader"],
+      "tools": {
+        "search": {
+          "tip": "Use this tool to search for sports-related information."
+        }
+      }
+    },
+    {
+      "name": "FootballExpert",
+      "role": "Football Expert",
+      "description": "Provides expert knowledge in football. Use domain knowledge for general concepts and online research for date-specific topics. Never assume a date is in the future — always verify using the search tool before drawing any conclusions. Always ensure information is verified and up to date.",
+      "host": "localhost",
+      "port": 50032,
+      "neighbors": [],
+      "tools": {
+        "search": {
+          "tip": "Use this tool to search for football-related information."
+        }
+      }
+    },
+    {
+      "name": "BasketballExpert", 
+      "role": "Basketball Expert",
+      "description": "Provides expert knowledge in basketball. Use domain knowledge for general concepts and online research for date-specific topics. Never assume a date is in the future — always verify using the search tool before drawing any conclusions. Always ensure information is verified and up to date.",
+      "host": "localhost",
+      "port": 50033,
+      "neighbors": [],
+      "tools": {
+        "search": {
+          "tip": "Use this tool to search for basketball-related information."
+        }
+      }
+    },
+    {
+      "name": "SportsProofreader",
+      "role": "Sports Proofreader",
+      "description": "Proofreads and refines sports articles for grammar, clarity and style.",
+      "host": "localhost",
+      "port": 50034,
+      "neighbors": []
+    }
+  ]
+}

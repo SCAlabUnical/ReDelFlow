@@ -1,0 +1,208 @@
+{
+  "orchestrator": { "host": "localhost", "port": 6000 },
+  "client":       { "host": "localhost", "port": 7000 },
+  "entrypoints": ["Coordinator"],
+  "agents": [
+    {
+      "name": "Coordinator",
+      "role": "Open-Discovery Coordinator",
+      "description": "Oversees the open discovery workflow by coordinating domain exploration, clustering, cross-domain linking, hypothesis synthesis, fact-checking and review to produce a coherent final report.",
+      "host": "localhost",
+      "port": 55200,
+      "neighbors": ["ClusterLinkSupervisor", "Synthesizer", "FactChecker", "Reviewer"]
+    },
+    {
+      "name": "ClusterLinkSupervisor",
+      "role": "Supervisor of Domain Exploration, Clustering and Linking",
+      "description": "Oversees multi-domain literature exploration via the DomainDispatcher and coordinates intra/cross-domain linking via the LinkerOrchestrator. Returns enriched clusters and ranked links.",
+      "host": "localhost",
+      "port": 55205,
+      "neighbors": ["DomainDispatcher", "LinkerOrchestrator"]
+    },
+    {
+      "name": "DomainDispatcher",
+      "role": "Dispatcher for Domain Literature Analysis",
+      "description": "Routes literature exploration requests to domain-specific routers (biomedicine, physics, computer science) and aggregates enriched thematic clusters grouped by domain in Markdown format.",
+      "host": "localhost",
+      "port": 55210,
+      "neighbors": ["BioRouter", "PhysicsRouter", "CSRouter"]
+    },
+    {
+      "name": "BioRouter",
+      "role": "Coordinator of Biomedical Literature Exploration and Clustering",
+      "description": "Generates diverse queries and distributes them to biomedical reader shards for broad coverage. Coordinates thematic clustering via BioClusterer and returns enriched biomedical clusters in Markdown format.",
+      "host": "localhost",
+      "port": 55220,
+      "neighbors": ["BioReader", "BioClusterer"]
+    },
+    {
+      "name": "BioReader",
+      "role": "Biomedical Literature Reader",
+      "description": "Searches arXiv for biomedical and quant-bio papers, returning structured notes including objectives summary, main results and limitations with citations.",
+      "host": "localhost",
+      "replicas": 3,
+      "ports": [55222, 55223, 55224],
+      "neighbors": [],
+      "tools": {
+        "arxiv_search": {
+          "tip": "Use this tool to search arXiv (bio/quant-bio). To filter by date, use the format query=keywords AND submittedDate:[YYYYMMDD TO YYYYMMDD]."
+        }
+      }
+    },
+    {
+      "name": "BioClusterer",
+      "role": "Topic Clusterer (Bio)",
+      "description": "Groups biomedical notes into thematically coherent clusters enriched with labels, keywords and per-paper synthesized fields (summary, main results, limitations, citations, year, paper_id, title). Output in Markdown format.",
+      "host": "localhost",
+      "port": 55221,
+      "neighbors": []
+    },
+    {
+      "name": "PhysicsRouter",
+      "role": "Coordinator of Physics Literature Exploration and Clustering",
+      "description": "Generates varied queries and distributes them to physics reader shards for broad coverage. Coordinates thematic clustering via PhysicsClusterer and returns enriched physics clusters in Markdown format.",
+      "host": "localhost",
+      "port": 55230,
+      "neighbors": ["PhysicsReader", "PhysicsClusterer"]
+    },
+    {
+      "name": "PhysicsReader",
+      "role": "Physics Literature Reader",
+      "description": "Searches arXiv for physics papers, returning structured notes including objectives summary, main results and limitations with citations.",
+      "host": "localhost",
+      "replicas": 3,
+      "ports": [55232, 55233, 55234],
+      "neighbors": [],
+      "tools": {
+        "arxiv_search": {
+          "tip": "Use this tool to search arXiv (physics). To filter by date, use the format query=keywords AND submittedDate:[YYYYMMDD TO YYYYMMDD]."
+        }
+      }
+    },
+    {
+      "name": "PhysicsClusterer",
+      "role": "Topic Clusterer (Physics)",
+      "description": "Groups physics notes into thematically coherent clusters enriched with labels, keywords and per-paper synthesized fields (summary, main results, limitations, citations, year, paper_id, title). Output in Markdown format.",
+      "host": "localhost",
+      "port": 55231,
+      "neighbors": []
+    },
+    {
+      "name": "CSRouter",
+      "role": "Coordinator of Computer Science Literature Exploration and Clustering",
+      "description": "Generates diverse queries and distributes them to CS reader shards for broad coverage. Coordinates thematic clustering via CSClusterer and returns enriched CS clusters in Markdown format.",
+      "host": "localhost",
+      "port": 55240,
+      "neighbors": ["CSReader", "CSClusterer"]
+    },
+    {
+      "name": "CSReader",
+      "role": "CS Literature Reader",
+      "description": "Searches arXiv for computer science papers, returning structured notes in Markdown including objectives summary, main results and limitations with citations.",
+      "host": "localhost",
+      "replicas": 3,
+      "ports": [55242, 55243, 55244],
+      "neighbors": [],
+      "tools": {
+        "arxiv_search": {
+          "tip": "Use this tool to search arXiv (cs). To filter by date, use the format query=keywords AND submittedDate:[YYYYMMDD TO YYYYMMDD]."
+        }
+      }
+    },
+    {
+      "name": "CSClusterer",
+      "role": "Topic Clusterer (CS)",
+      "description": "Groups CS notes into thematically coherent clusters enriched with labels, keywords and per-paper synthesized fields (summary, main results, limitations, citations, year, paper_id, title). Output in Markdown format.",
+      "host": "localhost",
+      "port": 55241,
+      "neighbors": []
+    },
+    {
+      "name": "LinkerOrchestrator",
+      "role": "Coordinator of Linking Between and Within Domain Clusters",
+      "description": "Coordinates identification of meaningful connections across and within domains. Oversees parallel linking efforts between domain pairs and consolidates the strongest link candidates into a global ranked list in Markdown format.",
+      "host": "localhost",
+      "port": 55250,
+      "neighbors": [
+        "Linker_Bio-CS",
+        "Linker_CS-Physics",
+        "Linker_Bio-Physics",
+        "Linker_Physics-Physics",
+        "Linker_Bio-Bio",
+        "Linker_CS-CS"
+      ]
+    },
+    {
+      "name": "Linker_Bio-CS",
+      "role": "Linker (Bio-CS)",
+      "description": "Identifies and ranks meaningful Bio-CS link candidates between distinct thematic clusters, grounded in enriched cluster context. Provides well-supported candidates with rationale and citations in Markdown format.",
+      "host": "localhost",
+      "port": 55251,
+      "neighbors": []
+    },
+    {
+      "name": "Linker_CS-Physics",
+      "role": "Linker (CS-Physics)",
+      "description": "Identifies and ranks meaningful CS-Physics link candidates between distinct thematic clusters, grounded in enriched cluster context. Provides well-supported candidates with rationale and citations in Markdown format.",
+      "host": "localhost",
+      "port": 55252,
+      "neighbors": []
+    },
+    {
+      "name": "Linker_Bio-Physics",
+      "role": "Linker (Bio-Physics)",
+      "description": "Identifies and ranks meaningful Bio-Physics link candidates between distinct thematic clusters, grounded in enriched cluster context. Provides well-supported candidates with rationale and citations in Markdown format.",
+      "host": "localhost",
+      "port": 55253,
+      "neighbors": []
+    },
+    {
+      "name": "Linker_Physics-Physics",
+      "role": "Intra-Domain Linker (Physics)",
+      "description": "Identifies and ranks meaningful Physics-Physics link candidates between distinct thematic clusters, grounded in enriched cluster context. Provides well-supported candidates with rationale and citations in Markdown format.",
+      "host": "localhost",
+      "port": 55320,
+      "neighbors": []
+    },
+    {
+      "name": "Linker_Bio-Bio",
+      "role": "Intra-Domain Linker (Bio)",
+      "description": "Identifies and ranks meaningful Bio-Bio link candidates between distinct thematic clusters, grounded in enriched cluster context. Provides well-supported candidates with rationale and citations in Markdown format.",
+      "host": "localhost",
+      "port": 55321,
+      "neighbors": []
+    },
+    {
+      "name": "Linker_CS-CS",
+      "role": "Intra-Domain Linker (CS)",
+      "description": "Identifies and ranks meaningful CS-CS link candidates between distinct thematic clusters, grounded in enriched cluster context. Provides well-supported candidates with rationale and citations in Markdown format.",
+      "host": "localhost",
+      "port": 55310,
+      "neighbors": []
+    },
+    {
+      "name": "Synthesizer",
+      "role": "Domain and Cross-Domain Hypothesis Synthesizer",
+      "description": "Turns top link candidates into scientifically grounded and falsifiable hypotheses with rationale and testable predictions, only when clearly supported by the provided evidence and citations. Output in Markdown format.",
+      "host": "localhost",
+      "port": 55260,
+      "neighbors": []
+    },
+    {
+      "name": "FactChecker",
+      "role": "Claim-Level Fact Checker",
+      "description": "Evaluates synthesized claims against provided notes and enriched clusters. Identifies supporting and conflicting evidence, flags uncertainty or gaps, and explicitly states when evidence is insufficient. Output in Markdown format.",
+      "host": "localhost",
+      "port": 55270,
+      "neighbors": []
+    },
+    {
+      "name": "Reviewer",
+      "role": "Methodological Reviewer",
+      "description": "Provides a concise methodological review of synthesized hypotheses: assesses soundness, identifies gaps and biases, and suggests simple validation experiments. States explicitly when no viable hypotheses are present. Output in Markdown format.",
+      "host": "localhost",
+      "port": 55280,
+      "neighbors": []
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+__pycache__
+*.pyc
+*.pyo
+.git
+.env
+.venv
+venv/
+examples/
+run_all.py
+*.json
+*.log
