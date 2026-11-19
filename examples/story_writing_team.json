@@ -1,0 +1,47 @@
+{
+  "orchestrator": { "host": "localhost", "port": 6000 },
+  "client":       { "host": "localhost", "port": 7000 },
+  "entrypoints": ["agentA"],
+  "agents": [
+    {
+      "name": "agentA",
+      "role": "Writer",
+      "description": "Writes stories of about 200 words, coordinating with character writers and reviewers.",
+      "host":"localhost",
+      "port": 50051,
+      "neighbors": ["agentB", "agentC", "agentD"]
+    },
+    {
+      "name": "agentB",
+      "role": "Reviewer",
+      "description": "Reviews stories and provides structured feedback on clarity, structure and coherence.",
+      "host":"localhost",
+      "port": 50052,
+      "neighbors": []
+    },
+    {
+      "name": "agentC",
+      "role": "Main Characters Writer",
+      "description": "Develops main characters with detailed backgrounds and motivations, in about 200 words.",
+      "host":"localhost",
+      "port": 50053,
+      "neighbors": ["agentE"]
+    },
+    {
+      "name": "agentD",
+      "role": "Secondary Characters Writer",
+      "description": "Develops secondary characters and their role in the story, in about 200 words.",
+      "host":"localhost",
+      "port": 50054,
+      "neighbors": ["agentE"]
+    },
+    {
+      "name": "agentE",
+      "role": "Computer Expert",
+      "description": "Provides technical knowledge on computer science topics, in about 200 words.",
+      "host":"localhost",
+      "port": 50055,
+      "neighbors": []
+    }
+  ]
+}

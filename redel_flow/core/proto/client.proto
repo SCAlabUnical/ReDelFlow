@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package agentic;
+
+service ClientReceiver {
+  rpc ReturnFinalResult(ReturnFinalResultRequest) returns (ReturnFinalResultResponse);
+}
+
+message ReturnFinalResultRequest{
+  string conversation_id = 1;
+  string final_response = 2;
+}
+
+message ReturnFinalResultResponse{
+  string conversation_id = 1;
+  bool ack = 2;
+}
